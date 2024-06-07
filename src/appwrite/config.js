@@ -7,10 +7,10 @@ export class Service{
     databases;
     bucket;
 
-    constructor(params) {
+    constructor() {
         this.client
-            .setEndpoint(config.appwriteUrl)
-            .setProject(config.appwriteProjectId);
+        .setEndpoint(conf.appwriteUrl)
+        .setProject(conf.appwriteProjectId);
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
@@ -72,22 +72,25 @@ export class Service{
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug
-            );
+            
+            )
         } catch (error) {
-            console.log("Appwrite service :: getPost :: error", error);
+            console.log("Appwrite serive :: getPost :: error", error);
             return false
         }
     }
 
-    async getPosts(queries = [Query.equal("status", "active")] ){
+    async getPosts(queries = [Query.equal("status", "active")]){
         try {
             return await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                queries
-            );
+                queries,
+                
+
+            )
         } catch (error) {
-            console.log("Appwrite service :: getPosts :: error", error);
+            console.log("Appwrite serive :: getPosts :: error", error);
             return false
         }
     }
